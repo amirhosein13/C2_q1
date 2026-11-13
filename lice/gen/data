@@ -35,38 +35,38 @@ gen path 1 1000000 1000000 s2i
 
 @subtask n300
 @include small
-gen rand 10 300 3000 s3a
-gen window 10 300 3000 s3b
-gen horse 10 300 3000 s3c
-gen horse 10 300 3000 s3d
-gen cc 10 300 3000 s3e
-gen cc 10 300 3000 s3f
-gen k3 10 300 3000 s3g
-gen bad 10 300 3000 s3h
-gen noncat 100 300 3000 s3i
-gen spider 10 300 3000 s3j
-gen deep 10 300 3000 s3k
-gen cat 10 300 3000 s3l
-gen binary 10 300 3000 s3m
+gen rand 10 300 2000 s3a
+gen window 10 300 2000 s3b
+gen horse 10 300 2000 s3c
+gen horse 10 300 2000 s3d
+gen cc 10 300 2000 s3e
+gen cc 10 300 2000 s3f
+gen k3 10 300 2000 s3g
+gen bad 10 300 2000 s3h
+gen noncat 100 300 2000 s3i
+gen spider 10 300 2000 s3j
+gen deep 10 300 2000 s3k
+gen cat 10 300 2000 s3l
+gen binary 10 300 2000 s3m
 
-@subtask n5000
+@subtask n2000
 @include n300
-gen rand 1 5000 5000 s4a
-gen window 1 5000 5000 s4b
-gen horse 1 5000 5000 s4c
-gen horse 1 5000 5000 s4d
-gen cc 1 5000 5000 s4e
-gen k3 1 5000 5000 s4f
-gen bad 1 5000 5000 s4g
-gen deep 1 5000 5000 s4h
-gen cat 1 5000 5000 s4i
-gen spider 1 5000 5000 s4j 5
-gen star 1 5000 5000 s4k
-gen path 1 5000 5000 s4l
-gen horse 5 5000 5000 s4m
+gen rand 1 2000 2000 s4a
+gen window 1 2000 2000 s4b
+gen horse 1 2000 2000 s4c
+gen horse 1 2000 2000 s4d
+gen cc 1 2000 2000 s4e
+gen k3 1 2000 2000 s4f
+gen bad 1 2000 2000 s4g
+gen deep 1 2000 2000 s4h
+gen cat 1 2000 2000 s4i
+gen spider 1 2000 2000 s4j 5
+gen star 1 2000 2000 s4k
+gen path 1 2000 2000 s4l
+gen horse 5 2000 2000 s4m
 
 @subtask full
-@include n5000 spider
+@include n2000 spider
 gen rand 1 1000000 1000000 s5a
 gen window 1 1000000 1000000 s5b
 gen window 1 1000000 1000000 s5c 2

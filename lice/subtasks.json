@@ -21,10 +21,10 @@
             "score": 18,
             "validators": ["val_n300.cpp"]
         },
-        "n5000": {
+        "n2000": {
             "index": 4,
             "score": 25,
-            "validators": ["val_n5000.cpp"]
+            "validators": ["val_n2000.cpp"]
         },
         "full": {
             "index": 5,

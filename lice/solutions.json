@@ -1,37 +1,70 @@
 {
-    "model.cpp": { "verdict": "model_solution" },
-    "alt.cpp": { "verdict": "correct" },
+    "model.cpp": {
+        "verdict": "model_solution"
+    },
+    "alt.cpp": {
+        "verdict": "correct"
+    },
     "slow_n2.cpp": {
         "verdict": "time_limit",
-        "except": { "samples": "correct", "small": "correct", "n300": "correct", "n5000": "correct" }
+        "except": {
+            "samples": "correct",
+            "small": "correct",
+            "n300": "correct",
+            "n2000": "correct"
+        }
     },
     "slow_n3.cpp": {
         "verdict": "time_limit",
-        "except": { "samples": "correct", "small": "correct", "n300": "correct" }
+        "except": {
+            "samples": "correct",
+            "small": "correct",
+            "n300": "correct"
+        }
     },
     "naive_pairs.cpp": {
         "verdict": "time_limit",
-        "except": { "samples": "correct", "small": "correct", "n300": "correct", "n5000": "correct" }
+        "except": {
+            "samples": "correct",
+            "small": "correct",
+            "n300": "correct",
+            "n2000": "correct"
+        }
     },
     "brute.cpp": {
         "verdict": "incorrect",
-        "except": { "samples": "correct", "small": "correct" }
+        "except": {
+            "samples": "correct",
+            "small": "correct"
+        }
     },
     "spider.cpp": {
         "verdict": "incorrect",
-        "except": { "spider": "correct" }
+        "except": {
+            "spider": "correct",
+            "samples": "correct"
+        }
     },
-    "wrong_caterpillar.cpp": { "verdict": "incorrect" },
+    "wrong_caterpillar.cpp": {
+        "verdict": "incorrect"
+    },
     "wrong_le2.cpp": {
         "verdict": "incorrect",
-        "except": { "samples": "correct" }
+        "except": {
+            "samples": "correct"
+        }
     },
     "wrong_nogood.cpp": {
         "verdict": "incorrect",
-        "except": { "samples": "correct" }
+        "except": {
+            "samples": "correct"
+        }
     },
     "wrong_cc.cpp": {
         "verdict": "incorrect",
-        "except": { "samples": "correct", "spider": "correct" }
+        "except": {
+            "samples": "correct",
+            "spider": "correct"
+        }
     }
 }
