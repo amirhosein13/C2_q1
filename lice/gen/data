@@ -1,0 +1,88 @@
+# gen <mode> <T> <nmax> <sumn> <seed> [p1] [p2]   (see gen.cpp)
+
+@subtask samples
+copy ../public/examples/01.in
+
+@subtask small
+@include samples
+manual hand-small.in
+gen rand 20 15 300 s1a
+gen window 20 15 300 s1b
+gen spine 25 15 300 s1c
+gen noncat 25 15 300 s1d
+gen noncat 25 15 300 s1e
+gen horse 20 15 300 s1f
+gen cc 20 15 300 s1g
+gen cc 20 15 300 s1h
+gen cc 20 15 300 s1i
+gen k3 20 15 300 s1j
+gen bad 20 15 300 s1k
+gen spider 20 15 300 s1l
+gen deep 20 15 300 s1m
+gen binary 20 15 300 s1n
+gen cat 20 15 300 s1o
+
+@subtask spider
+gen spider 1 1000000 1000000 s2a 4
+gen spider 1 1000000 1000000 s2b 5
+gen spider 1 1000000 1000000 s2c 3
+gen spider 1 1000000 1000000 s2d 0
+gen spider 2000 500 1000000 s2e
+gen spider 200000 15 1000000 s2f
+gen spider 1000 3000 1000000 s2g 5
+gen star 1 1000000 1000000 s2h
+gen path 1 1000000 1000000 s2i
+
+@subtask n300
+@include small
+gen rand 10 300 3000 s3a
+gen window 10 300 3000 s3b
+gen horse 10 300 3000 s3c
+gen horse 10 300 3000 s3d
+gen cc 10 300 3000 s3e
+gen cc 10 300 3000 s3f
+gen k3 10 300 3000 s3g
+gen bad 10 300 3000 s3h
+gen noncat 100 300 3000 s3i
+gen spider 10 300 3000 s3j
+gen deep 10 300 3000 s3k
+gen cat 10 300 3000 s3l
+gen binary 10 300 3000 s3m
+
+@subtask n5000
+@include n300
+gen rand 1 5000 5000 s4a
+gen window 1 5000 5000 s4b
+gen horse 1 5000 5000 s4c
+gen horse 1 5000 5000 s4d
+gen cc 1 5000 5000 s4e
+gen k3 1 5000 5000 s4f
+gen bad 1 5000 5000 s4g
+gen deep 1 5000 5000 s4h
+gen cat 1 5000 5000 s4i
+gen spider 1 5000 5000 s4j 5
+gen star 1 5000 5000 s4k
+gen path 1 5000 5000 s4l
+gen horse 5 5000 5000 s4m
+
+@subtask full
+@include n5000 spider
+gen rand 1 1000000 1000000 s5a
+gen window 1 1000000 1000000 s5b
+gen window 1 1000000 1000000 s5c 2
+gen horse 1 1000000 1000000 s5d
+gen horse 1 1000000 1000000 s5e
+gen horse 1 1000000 1000000 s5f
+gen cc 1 1000000 1000000 s5g
+gen cc 1 1000000 1000000 s5h
+gen k3 1 1000000 1000000 s5i
+gen bad 1 1000000 1000000 s5j
+gen deep 1 1000000 1000000 s5k
+gen deep 1 1000000 1000000 s5l
+gen cat 1 1000000 1000000 s5m
+gen binary 1 1000000 1000000 s5n
+gen horse 20 1000000 1000000 s5o
+gen cc 1000 1000000 1000000 s5p
+gen rand 200000 1000000 1000000 s5q
+gen noncat 30000 1000000 1000000 s5r
+gen horse 200000 1000000 1000000 s5s

@@ -1,0 +1,12 @@
+{
+    "name": "lice",
+    "code": "lice",
+    "title": "پرش شپش",
+    "type": "Batch",
+    "has_grader": true,
+    "java_enabled": false,
+    "python_enabled": false,
+    "time_limit": 2.0,
+    "memory_limit": 256,
+    "description": "Petrozavodsk Summer 2025 Day 6 L (Lice Hopping), OI-style with grader"
+}

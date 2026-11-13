@@ -1,0 +1,35 @@
+{
+    "global_validators": ["validator.cpp"],
+    "subtasks": {
+        "samples": {
+            "index": 0,
+            "score": 0,
+            "validators": ["val_small.cpp"]
+        },
+        "small": {
+            "index": 1,
+            "score": 10,
+            "validators": ["val_small.cpp"]
+        },
+        "spider": {
+            "index": 2,
+            "score": 12,
+            "validators": ["val_spider.cpp"]
+        },
+        "n300": {
+            "index": 3,
+            "score": 18,
+            "validators": ["val_n300.cpp"]
+        },
+        "n5000": {
+            "index": 4,
+            "score": 25,
+            "validators": ["val_n5000.cpp"]
+        },
+        "full": {
+            "index": 5,
+            "score": 35,
+            "validators": []
+        }
+    }
+}
