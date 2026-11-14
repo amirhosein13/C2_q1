@@ -1,53 +1,78 @@
-# پرامپت: آماده‌کردن یک سوال TPS برای آپلود دستی در CMS (فقط پنل ادمین)
+# پرامپت: آماده‌کردن سوالِ همین چت برای آپلود دستی در CMS (فقط پنل ادمین)
 
-این متن را در چت‌هایی بفرستید که سوالشان در TPS آماده است (یا تقریباً آماده است):
+این نسخه مستقل است: به هیچ ریپو یا سوال دیگری (از جمله `lice`) ارجاع نمی‌دهد.
 
 ```
-سوال این چت باید برای آپلود در CMS آماده شود. من فقط دسترسی پنل ادمین CMS را دارم (نسخه‌ی 1.5.1)،
-نه ترمینال سرور؛ پس cmsImportTask قابل استفاده نیست و همه‌چیز باید دستی از پنل آپلود شود.
+فقط روی سوالِ خودِ این چت کار کن. از هیچ ریپو، سوال یا چت دیگری فایل، کد، تست یا متن کپی نکن.
+اگر قبلاً چیزی مربوط به سوال دیگری (مثلاً پوشه یا فایل‌هایی با نام lice، متن، تست، grader، checker یا
+بسته‌ی آپلود آن) به ریپوی این چت اضافه کرده‌ای، اول همه را پیدا و حذف کن (یا commit مربوطه را revert کن)
+و بگو دقیقاً چه چیزهایی بود.
 
-مرجع: ریپوی github.com/amirhosein13/c2_q1، شاخه‌ی claude/olympiad-exam-question-design-qxwo7p.
-سوال lice/ در آن کامل و تأییدشده است. اگر فایل‌های زیر در ریپوی تو نیستند، از همان‌جا بردار
-(با add_repo یا git clone) و بدون تغییرِ بی‌دلیل در ریپوی خودت بگذار:
-  - tools/make_cms_upload.py    (ساخت بسته‌ی آپلود)
-  - tools/statement/            (ساخت PDF فارسی RTL: package.json + build.js)
-  - docs/cms-admin-only-fa.md   (راهنمای آپلود از پنل)
-  - CLAUDE.md                   (قراردادها و درس‌ها؛ اول این را بخوان)
+هدف: سوالِ این چت را طوری آماده کن که بتوانم آن را دستی از پنل ادمین CMS آپلود کنم.
+- من فقط دسترسی پنل ادمین (AdminWebServer) دارم، نه ترمینال سرور؛ پس cmsImportTask در دسترس نیست.
+- نسخه‌ی CMS: 1.5.1.
+- هر چیزی درباره‌ی CMS را از کد خود CMS تأیید کن، نه از حافظه:
+  git clone --depth 1 --branch v1.5.1 https://github.com/cms-dev/cms
+  (به‌خصوص cmscontrib/loaders/tps.py، cms/grading/tasktypes/، cms/grading/scoretypes/،
+  cmscommon/importers.py و قالب‌های cms/server/admin/templates/).
 
 کارها، به ترتیب:
-1. وضعیت فعلی سوال را چک کن: tps gen، tps verify، tps invoke برای همه‌ی راه‌حل‌ها (همه "match with
-   expected")، تست checker. اگر چیزی ناقص یا خراب است اول درستش کن و بگو چه بود.
-2. متن فارسی statement/index.md را به PDF تبدیل کن:
-   node tools/statement/build.js <task>/statement/index.md <task>/statement/<task>-fa.pdf
-   و صفحه‌ها را به تصویر تبدیل کن و خودت نگاه کن (راست‌به‌چپ، فرمول‌ها، جدول زیرمسئله‌ها، نمونه‌ها).
-3. بسته‌ی آپلود را بساز (داخل پوشه‌ی سوال، بعد از tps gen):
-   python3 ../tools/make_cms_upload.py statement/<task>-fa.pdf
-   و خروجی <task>/cms-upload/ را بررسی کن.
-4. سازگاری با CMS 1.5.1 را واقعاً چک کن، نه فرضی:
-   - tps export CMS 1 (فقط protocol 1؛ protocol 2 با loader رسمی خطا می‌دهد).
-   - loader رسمی tps_task نسخه‌ی v1.5.1 را از github.com/cms-dev/cms روی خروجی export اجرا کن
-     (اسکریپت tools/cms_loader_dryrun.py در ریپوی مرجع همین کار را بدون پایگاه داده می‌کند).
-   - checker و grader+راه‌حل اصلی با -std=gnu++14 کامپایل شوند (CMS 1.5.1 checker را با gnu++14 می‌سازد).
-   - checker در بسته باید فایل اجرایی static x86-64 با نام دقیق "checker" باشد؛ grader با نام
-     grader.cpp و هدر <task>.h (برای Batch با grader).
-   - هر zip تست زیر 100MB باشد (حد پیش‌فرض آپلود پنل)؛ اسم تست‌ها <codename>.in / <codename>.out با
-     الگوهای *.in و *.out.
-   - پارامترهای GroupMin با regex لنگردار ^(...)$ (CMS از regex.match استفاده می‌کند)، و چک کن هر
-     regex دقیقاً همان تعداد تست زیرمسئله را بگیرد و جمع امتیاز 100 باشد.
-   - اگر نوع سوال Batch نیست (تعاملی/Communication، OutputOnly، TwoSteps)، make_cms_upload.py را برای
-     آن نوع گسترش بده (manager کامپایل‌شده، stub، پارامترهای task type) و مقادیر را از کد
-     cms/grading/tasktypes/ و قالب‌های cms/server/admin/templates/ نسخه‌ی 1.5.1 بردار، نه از حدس.
-5. فایل SETTINGS.md داخل cms-upload باید مقدار تک‌تک فیلدهای پنل را داشته باشد، از جمله:
-   Score mode = «...IOI 2017-» (max_subtask؛ پیش‌فرض CMS چیز دیگری است)، primary statement = fa،
-   Task type و پارامترهایش، TL و حافظه (MiB)، managers، score type و پارامترها، الگوهای تست، تعداد تست.
-6. cms-upload را در .gitignore بگذار (حجیم است)، بقیه را commit و push کن روی شاخه‌ی کاری خودت.
-7. فایل‌های کوچک بسته (SETTINGS.md، score_type_parameters.json، PDF، پیوست zip، managers) را برایم
-   بفرست. برای zipهای تست بگو چطور روی کامپیوتر خودم بسازم (tps gen + make_cms_upload.py؛ اگر
-   tps/ خالی است: git submodule update --init).
-8. در پایان به فارسی و کوتاه بگو:
-   - نوع سوال، زیرمسئله‌ها، TL/ML
-   - جدول invoke (هر راه‌حل × هر زیرمسئله) و زمان بدترین تست راه‌حل اصلی
-   - مراحل آپلود در پنل ادمین، قدم‌به‌قدم، مخصوص همین سوال
-   - جدول ارسال‌های آزمایشی بعد از آپلود (کدام فایل → چه امتیازی باید بگیرد)
-   - هر چیزی که تأیید نکردی را صریح بگو.
+
+1. بررسی سلامت سوال:
+   tps gen، tps verify، و tps invoke برای همه‌ی راه‌حل‌ها (همه باید "match with expected" باشند)،
+   و اجرای checker روی چند خروجی دست‌ساز (درست، غلط، فرمت غلط، ناقص، اضافه).
+   اگر چیزی خراب یا ناقص است، اول درستش کن و گزارش بده.
+
+2. PDF فارسی متن سوالِ همین چت، از Markdown موجود در statement/:
+   - راست‌به‌چپ و با فونت فارسی؛ فرمول‌ها رندر شوند.
+   - با هر ابزاری که در محیطت کار می‌کند (مثلاً markdown → HTML با KaTeX و چاپ با Chromium/Playwright).
+   - صفحه‌ها را به تصویر تبدیل کن و خودت نگاه کن: جهت متن، فرمول‌ها، جدول زیرمسئله‌ها، نمونه‌ها.
+
+3. ساخت بسته‌ی آپلود در <task>/cms-upload/ (با یک اسکریپت تکرارپذیر در ریپو).
+   خروجی را از `tps export CMS 1 -a none` بگیر؛ فقط protocol 1، چون loader رسمی CMS protocol 2 را نمی‌فهمد.
+   محتوای بسته:
+   - managers/ — دقیقاً همان فایل‌هایی که نوع سوال در CMS 1.5.1 لازم دارد، با اسم‌هایی که CMS انتظار دارد:
+     • Batch با grader: grader.cpp و <task>.h.
+     • checker به‌صورت فایل اجرایی static لینوکس x86-64 با نام دقیق checker، کامپایل‌شده با
+       g++ -x c++ -std=gnu++14 -O2 -static.
+     • Communication/تعاملی، OutputOnly یا TwoSteps: manager و stub و پارامترها را دقیقاً از
+       cms/grading/tasktypes/ همان نسخه دربیاور.
+   - testcases-partN.zip — همه‌ی تست‌ها به‌صورت فایل‌های تخت <codename>.in و <codename>.out (بدون پوشه).
+     هر zip زیر ۷۰MB باشد، چون پنل به‌طور پیش‌فرض بدنه‌ی بزرگ‌تر از ۱۰۰MB را رد می‌کند.
+   - score_type_parameters.json — پارامترهای GroupMin به شکل [[امتیاز, "regex"], ...] به ترتیب زیرمسئله‌ها.
+     • regex لنگردار ^(...)$ باشد، چون CMS از regex.match استفاده می‌کند.
+     • با یک اسکریپت چک کن که هر regex دقیقاً تست‌های همان زیرمسئله را بگیرد و جمع امتیازها ۱۰۰ باشد.
+   - attachments/<task>.zip — بسته‌ی عمومی شرکت‌کننده‌ها (خروجی tps make-public).
+     مطمئن شو هیچ داده‌ی مخفی، مثل رشته‌ی مخفی خروجی، در آن نیست.
+   - statement-fa.pdf
+   - SETTINGS.md — مقدار تک‌تک فیلدهای پنل برای همین سوال:
+     • Name، Title، statement با کد زبان fa و تیک Primary، پیوست، Submission format،
+       Feedback level، Tokens غیرفعال، محدودیت ارسال، Score precision.
+     • Score mode = «Use the sum over each subtask of the best result ... (IOI 2017-)»؛ پیش‌فرض CMS این نیست.
+     • Time limit (ثانیه) و Memory limit (MiB).
+     • Task type و همه‌ی پارامترهایش با همان برچسب‌هایی که در فرم پنل دیده می‌شود.
+     • Managers.
+     • Score type = GroupMin و پارامترهایش.
+     • آپلود تست‌ها با Add multiple testcases و الگوهای *.in و *.out، و تعداد نهایی تست‌ها.
+   cms-upload/ را در .gitignore بگذار، چون حجیم است.
+
+4. تأیید واقعی سازگاری با CMS 1.5.1:
+   - loader رسمی tps_task همان نسخه را روی خروجی export اجرا کن. اگر نصب کامل CMS ممکن نیست،
+     ماژول‌های cms.* را stub کن و فقط loader را اجرا کن. خروجی (task type و پارامترها، managers،
+     تعداد تست، score type) را با SETTINGS.md مقایسه کن.
+   - grader داوری + راه‌حل اصلی را با -std=gnu++14 کامپایل کن.
+   - هر موردی که تأیید نشد را صریح بگو.
+
+5. commit و push روی شاخه‌ی کاری همین چت (نه main).
+
+6. فایل‌های کوچک بسته را برایم بفرست: SETTINGS.md، score_type_parameters.json، PDF، پیوست zip و managers.
+   برای zipهای تست بگو چطور روی کامپیوتر خودم بسازم: کدام دستورها، از کدام پوشه، و اگر پوشه‌ی TPS خالی
+   بود (submodule)، چطور پرش کنم.
+
+7. در پایان، به فارسی و کوتاه:
+   - نوع سوال، زیرمسئله‌ها، TL و ML.
+   - جدول invoke (هر راه‌حل × هر زیرمسئله) و زمان بدترین تست راه‌حل اصلی؛ باید ۲ تا ۳ برابر کمتر از TL باشد.
+   - مراحل آپلود در پنل ادمین، قدم‌به‌قدم، مخصوص همین سوال.
+   - جدول ارسال‌های آزمایشی بعد از آپلود: کدام فایل راه‌حل چه امتیازی باید بگیرد.
+   - هر چیزی که تأیید نکردی.
 ```
