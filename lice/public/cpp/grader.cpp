@@ -1,41 +1,40 @@
 #include "lice.h"
 #include <cassert>
 #include <cstdio>
-#include <cstdlib>
+#include <unistd.h>
 #include <vector>
 
 namespace {
 
-// Fast reader over the whole standard input.
+// Buffered reader: refills with read(2), which returns whatever data is
+// available (e.g. one typed line), so it never waits for end-of-file and
+// typing the input in a terminal works. It only reads the integers it needs.
 // The grader reads every test case before calling min_days and then closes
 // stdin, so the contestant code cannot read the input stream itself.
-char *buf;
-size_t buf_len, buf_pos;
+char buf[1 << 16];
+int buf_len = 0, buf_pos = 0;
 
-void load_input() {
-	size_t cap = 1 << 20;
-	buf = (char*)malloc(cap);
-	buf_len = 0;
-	while (true) {
-		if (buf_len == cap) {
-			cap *= 2;
-			buf = (char*)realloc(buf, cap);
-			assert(buf != nullptr);
-		}
-		size_t r = fread(buf + buf_len, 1, cap - buf_len, stdin);
-		if (r == 0) break;
-		buf_len += r;
+int next_char() {
+	if (buf_pos == buf_len) {
+		ssize_t r = read(0, buf, sizeof(buf));
+		if (r <= 0)
+			return EOF;
+		buf_len = (int)r;
+		buf_pos = 0;
 	}
-	buf_pos = 0;
+	return (unsigned char)buf[buf_pos++];
 }
 
 int read_int() {
-	while (buf_pos < buf_len && (buf[buf_pos] < '0' || buf[buf_pos] > '9'))
-		buf_pos++;
-	assert(buf_pos < buf_len);
+	int c = next_char();
+	while (c != EOF && (c < '0' || c > '9'))
+		c = next_char();
+	assert(c != EOF);  // input ended too early
 	int x = 0;
-	while (buf_pos < buf_len && buf[buf_pos] >= '0' && buf[buf_pos] <= '9')
-		x = x * 10 + (buf[buf_pos++] - '0');
+	while (c >= '0' && c <= '9') {
+		x = x * 10 + (c - '0');
+		c = next_char();
+	}
 	return x;
 }
 
@@ -47,7 +46,6 @@ struct TestCase {
 } // namespace
 
 int main() {
-	load_input();
 	int T = read_int();
 	std::vector<TestCase> tests(T);
 	for (int t = 0; t < T; t++) {
@@ -60,7 +58,6 @@ int main() {
 			tests[t].V[i] = read_int() - 1;
 		}
 	}
-	free(buf);
 	fclose(stdin);
 
 	std::vector<int> answers(T);

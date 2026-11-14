@@ -5,9 +5,15 @@ using namespace std;
 // spine prefixes that start at some endpoint on v's side, end at v and continue to y.
 // answer 2 iff some y can be the final endpoint.  goodness computed by rerooting counts.
 int min_days(int n, vector<int> U, vector<int> V){
-    vector<vector<int>> g(n);
-    for(int i=0;i<n-1;i++) g[U[i]].push_back(V[i]),g[V[i]].push_back(U[i]);
-    bool path=true; for(auto&a:g) if(a.size()>2) path=false;
+    // CSR adjacency; g[x] is a light range so that for(int y:g[x]) and g[x].size() work
+    vector<int> st(n+1,0),adj(2*(n-1));
+    for(int i=0;i<n-1;i++) st[U[i]+1]++,st[V[i]+1]++;
+    for(int i=0;i<n;i++) st[i+1]+=st[i];
+    {vector<int> p(st.begin(),st.end()-1); for(int i=0;i<n-1;i++) adj[p[U[i]]++]=V[i],adj[p[V[i]]++]=U[i];}
+    struct R{const int*b,*e; const int*begin()const{return b;} const int*end()const{return e;} size_t size()const{return e-b;}};
+    auto G=[&](int x){return R{adj.data()+st[x],adj.data()+st[x+1]};};
+    struct GG{decltype(G)&f; R operator[](int x)const{return f(x);}} g{G};
+    bool path=true; for(int x=0;x<n;x++) if(g[x].size()>2) path=false;
     if(path) return 1;
     auto nl=[&](int x){return g[x].size()>=2;};
     vector<int> par(n,-1),ord={0}; vector<char> vis(n,0); vis[0]=1;
