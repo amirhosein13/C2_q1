@@ -47,4 +47,7 @@ cmsImportTask -L tps_task lice -c <contest_id>      # به‌روزرسانی: -
 
 بعد از import در AdminWebServer:
 - زبان متن (`fa`) را به‌عنوان primary statement انتخاب کنید (loader فقط `en_US` را خودکار primary می‌کند).
-- loader این‌ها را ثابت می‌گذارد: `max_submission_number=50`، `min_submission_interval=60s`، score mode = max_subtask؛ در صورت نیاز تغییر دهید.
+- **Score mode را روی `max_subtask` بگذارید** (loader در CMS 1.5.1 آن را تنظیم نمی‌کند؛ فقط نسخه‌ی master این کار را می‌کند).
+- loader این‌ها را ثابت می‌گذارد: `max_submission_number=50`، `min_submission_interval=60s`؛ در صورت نیاز تغییر دهید.
+
+راهنمای کامل نصب و برگزاری آزمون از صفر: [`docs/cms-guide-fa.md`](docs/cms-guide-fa.md).
