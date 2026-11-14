@@ -101,7 +101,8 @@ CMS خودش Submission format را `lice.%l` می‌گذارد و یک dataset 
 ### ۳.۴ تست‌ها
 در بخش testcases → **Add multiple testcases**:
 - Archive: `testcases-part1.zip`
-- Public: تیک نزنید. فقط اگر می‌خواهید جزئیات هر تست برای شرکت‌کننده نمایش داده شود، تیک بزنید.
+- **Public: تیک بزنید.** CMS فقط امتیاز تست‌های public را به شرکت‌کننده نشان می‌دهد. اگر هیچ تستی public نباشد،
+  شرکت‌کننده به‌جای امتیاز «Total score: N/A» می‌بیند. برای آزمون IOI-style همه‌ی تست‌ها باید public باشند.
 - Input file names template: `*.in`
 - Output file names template: `*.out`
 - Upload

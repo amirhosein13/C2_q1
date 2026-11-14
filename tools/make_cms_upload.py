@@ -100,7 +100,7 @@ Dataset part:
 - Score type: `GroupMin`
 - Score type parameters: paste the content of `score_type_parameters.json`
 - Testcases: "Add multiple testcases" once per archive: {', '.join(os.path.basename(p) for p in parts)},
-  input template `*.in`, output template `*.out`, Public: untick (or tick only if you want full feedback on all)
+  input template `*.in`, output template `*.out`, **Public: TICK** (if no testcase is public, contestants see "Total score: N/A")
   -> expect {len(tests)} testcases
 
 Subtasks: {', '.join(f'{p[0]}' for p in params)} (total {sum(p[0] for p in params)})

@@ -53,7 +53,8 @@
      • Task type و همه‌ی پارامترهایش با همان برچسب‌هایی که در فرم پنل دیده می‌شود.
      • Managers.
      • Score type = GroupMin و پارامترهایش.
-     • آپلود تست‌ها با Add multiple testcases و الگوهای *.in و *.out، و تعداد نهایی تست‌ها.
+     • آپلود تست‌ها با Add multiple testcases و الگوهای *.in و *.out، با تیک Public (اگر هیچ تستی public نباشد،
+       شرکت‌کننده «Total score: N/A» می‌بیند)، و تعداد نهایی تست‌ها.
    cms-upload/ را در .gitignore بگذار، چون حجیم است.
 
 4. تأیید واقعی سازگاری با CMS 1.5.1:
