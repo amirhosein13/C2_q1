@@ -51,3 +51,5 @@ cmsImportTask -L tps_task lice -c <contest_id>      # به‌روزرسانی: -
 - loader این‌ها را ثابت می‌گذارد: `max_submission_number=50`، `min_submission_interval=60s`؛ در صورت نیاز تغییر دهید.
 
 راهنمای کامل نصب و برگزاری آزمون از صفر: [`docs/cms-guide-fa.md`](docs/cms-guide-fa.md).
+
+**اگر فقط دسترسی پنل ادمین دارید:** `python3 ../tools/make_cms_upload.py statement/lice-fa.pdf` (داخل پوشه‌ی سوال، بعد از `tps gen`) و راهنمای [`docs/cms-admin-only-fa.md`](docs/cms-admin-only-fa.md).
