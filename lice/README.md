@@ -57,3 +57,7 @@ tps export CMS 1 -o lice-cms -a zip
 unzip lice-cms.zip && mkdir -p lice/statements && cp statement/lice-fa.pdf lice/statements/fa.pdf
 cmsImportTask -L tps_task lice -c <contest_id>
 ```
+
+## ادیتوریال
+`editorial/index.md` (منبع) و `editorial/lice-editorial-fa.pdf`. شکل‌ها با `cd editorial && python3 make_figs.py` ساخته می‌شوند؛ PDF با:
+`node ../tools/statement/build.js editorial/index.md editorial/lice-editorial-fa.pdf`
